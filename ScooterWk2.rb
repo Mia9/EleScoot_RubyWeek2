@@ -31,9 +31,27 @@ attr_reader :scooter_id, :state
 	def state_status
 	   @state = "available"
 	end
+
+	def rented_state
+		@state = "rented"
+	end
 end
 
-# class Calculation #later
+class Calculation 
+	attr_reader :start_time, :end_time, :rental_duration
+	def initialize(start_time, end_time)
+		@start_time = start_time
+		@end_time = end_time
+		@rental_duration = rental_duration
+	end
+
+	def rental_duration #charge rm2 every 30 minutes usage
+        duration = @end_time - @start_time
+        charge = (duration / 30) * 2 
+	end
+
+end
+
 
 rider = Rider.new("Mia", "0113346")
 puts "Hi! Welcome to Elescoot! What is your name?"
@@ -49,6 +67,10 @@ puts "-------"
 
 scooter = Scooter.new("Scoot01", "available")
 puts "This #{scooter.scooter_id} is #{scooter.state_status}."
+
+calculation = Calculation.new(10, 90)
+puts "Your total payment is RM #{calculation.rental_duration}"
+
 
 
 
