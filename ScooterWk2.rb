@@ -4,74 +4,35 @@
 #Calculation (time, rental_fee)
 #Docking Station (location and capacity-parking spaces)
 
-class Rider
-attr_reader :name, :contact_number
-	def initialize(name, contact_number)
-		@name = name
-	    @contact_number = contact_number	
-	end
-end
+require './Rider'
+require './Station'
+require './Scooter'
+#require './Calculation' #without getting input
+require './Calculation2' #gets user input this time
 
-class Station
-attr_reader :station_name, :capacity
-	def initialize(station_name, capacity)
-		@station_name = station_name
-		@capacity = 0
-	end
-end
-
-
-class Scooter  #available or not
-attr_reader :scooter_id, :state
-	def initialize(scooter_id, state)
-		@scooter_id = scooter_id
-        @state = state	
-	end
-
-	def state_status
-	   @state = "available"
-	end
-
-	def rented_state
-		@state = "rented"
-	end
-end
-
-class Calculation 
-	attr_reader :start_time, :end_time, :rental_duration
-	def initialize(start_time, end_time)
-		@start_time = start_time
-		@end_time = end_time
-		@rental_duration = rental_duration
-	end
-
-	def rental_duration #charge rm2 every 30 minutes usage
-        duration = @end_time - @start_time
-        charge = (duration / 30) * 2 
-	end
-
-end
-
-
-rider = Rider.new("Mia", "0113346")
-puts "Hi! Welcome to Elescoot! What is your name?"
-puts "#{rider.name}"
-puts "What's your phone number?"
-puts "#{rider.contact_number}"
+rider = Rider.new
+rider.user_input
 puts "-------"
-
-station = Station.new("KK", 0)
-puts "Which station are you right now?"
+station = Station.new("KK", 10)
+station2 = Station.new("1B", 5)
+puts "Please confirm current station"
 puts "#{station.station_name}"
+puts "Docking space availabe #{station.capacity}"
+puts "Which other station would you want to dock?"
+puts "#{station2.station_name}"
 puts "-------"
+
 
 scooter = Scooter.new("Scoot01", "available")
-puts "This #{scooter.scooter_id} is #{scooter.state_status}."
+scooter2 = Scooter.new("Scoot02", "unavailable")
+scooter3 = Scooter.new("Scoot03", "broken")
+puts "This #{scooter.scooter_id} is #{scooter.available_state}."
+puts "This #{scooter2.scooter_id} is #{scooter2.rented_state}."
+puts "This #{scooter3.scooter_id} is #{scooter3.broken_state}"
+puts "________"
 
-calculation = Calculation.new(10, 90)
-puts "Your total payment is RM #{calculation.rental_duration}"
-
-
+calculation = Calculation.new
+calculation.rental_cost
 
 
 
